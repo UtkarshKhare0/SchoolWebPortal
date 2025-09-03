@@ -1,0 +1,11 @@
+
+html,body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-div{
+    flex:1
+       /* isse shrink aur grow apne aap karega footer */
+}
