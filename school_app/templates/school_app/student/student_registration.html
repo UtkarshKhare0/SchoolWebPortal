@@ -1,64 +1,225 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Student Registration</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+
+
+  <style>
+    body {
+      background-image: url("{% static 'school_app/images/WhatsApp Image 2025-09-04 at 11.30.00 PM.jpeg' %}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .admin_form {
+      width: 90%;
+      max-width: 650px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      margin: 50px auto;
+      color: #222;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .form-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 25px;
+      padding: 12px;
+      background: linear-gradient(135deg, #7da2a9, #071B52);
+      color:#ffd700;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .form-label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .input-group-text {
+      background-color: #f0f8ff;
+      border: none;
+      border-right: 1px solid #ddd;
+    }
+
+    .form-control, .form-select {
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid #ddd;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #4e8fa6;
+      box-shadow: 0 0 8px rgba(78,143,166,0.4);
+    }
+
+    .btn-outline-primary {
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border-width: 2px;
+    }
+    .btn-outline-primary:hover {
+      background-color: #0d6efd;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(13,110,253,0.4);
+    }
+
+    h4 {
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    label {
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+  </style>
+  {% include 'school_app/common/common_css.html' %}
+
 </head>
 <body>
-    <h2>Student Registration Form</h2>
 
-    <form method="post">
+  <div class="main-div">
+
+    <!-- header -->
+    {% include 'school_app/common/header.html' %}
+
+    <!-- Title -->
+    <div class="form-title">Student Registration <i class="fa-solid fa-thumbs-up"></i></div>
+
+    <!-- Registration Form -->
+    <div class="admin_form">
+      <form action="/register/" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <label for="student_name">Name:</label><br>
-        <input type="text" id="student_name" name="student_name" required><br><br>
+        <!-- Student Name -->
+        <label class="form-label" for="student_name">Student Name</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-user" style="color:blue;"></i></span>
+          <input type="text" id="student_name" name="student_name" class="form-control" placeholder="Enter your full name" required>
+        </div>
 
-        <label for="student_class">Class:</label><br>
-        <input type="text" id="student_class" name="student_class" required><br><br>
+        <!-- Student Class -->
+        <label class="form-label" for="student_class">Class</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-school" style="color:blue;"></i></span>
+          <input type="text" id="student_class" name="student_class" class="form-control" placeholder="e.g. 10th" required>
+        </div>
 
-        <label for="student_phone_number">Phone Number:</label><br>
-        <input type="text" id="student_phone_number" name="student_phone_number" required><br><br>
+        <!-- Password -->
+        <label class="form-label" for="student_password">Password</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-lock" style="color:blue;"></i></span>
+          <input type="password" id="student_password" name="student_password" class="form-control" placeholder="Choose a password" required>
+        </div>
 
-        <label for="student_email">Email ID:</label><br>
-        <input type="email" id="student_email" name="student_email" required><br><br>
+        <!-- Phone -->
+        <label class="form-label" for="student_phone_number">Phone Number</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-phone" style="color:blue;"></i></span>
+          <input type="number" id="student_phone_number" name="student_phone_number" class="form-control" placeholder="Enter phone number" required>
+        </div>
 
-        <label for="student_password">Password:</label><br>
-        <input type="password" id="student_password" name="student_password" required><br><br>
+        <!-- Email -->
+        <label class="form-label" for="student_email">Email</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-envelope" style="color:blue;"></i></span>
+          <input type="email" id="student_email" name="student_email" class="form-control" placeholder="Enter your email" required>
+        </div>
 
-        <label for="mun_experience">Experience:</label><br>
-        <textarea id="mun_experience" name="mun_experience"></textarea><br><br>
+        <!-- MUN Experience -->
+        <label class="form-label" for="mun_experience">MUN Experience (Number of MUNs attended)</label>
+        <input type="number" id="mun_experience" name="mun_experience" class="form-control mb-3" placeholder="e.g. 2" min="0" required>
 
-        <label for="committee_preference_1">Committee Preference (1):</label><br>
-        <select id="committee_preference_1" name="committee_preference_1" required>
-            <option value="">-- Select Committee --</option>
-            {% for value, label in committee_choices %}
-            <option value="{{ value }}">{{ label }}</option>
-            {% endfor %}
-        </select><br><br>
+        <!-- Head Delegate -->
+        <label class="form-label">Is Head Delegate?</label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" id="head_delegate_yes" name="is_head_delegate" value="yes">
+          <label class="form-check-label" for="head_delegate_yes">Yes</label>
+        </div>
+        <div class="form-check form-check-inline mb-3">
+          <input class="form-check-input" type="radio" id="head_delegate_no" name="is_head_delegate" value="no">
+          <label class="form-check-label" for="head_delegate_no">No</label>
+        </div>
 
-        <label for="committee_preference_2">Committee Preference (2):</label><br>
-        <select id="committee_preference_2" name="committee_preference_2">
-            <option value="">-- Select Committee --</option>
-            {% for value, label in committee_choices %}
-            <option value="{{ value }}">{{ label }}</option>
-            {% endfor %}
-        </select><br><br>
+        <!-- Committee Preference 1 -->
+        <label class="form-label" for="committee_preference_1">Committee Preference (1)</label>
+        <select id="committee_preference_1" name="committee_preference_1" class="form-select mb-3" required>
+          <option value="">-- Select Committee --</option>
+          {% for value, label in committee_choices %}
+          <option value="{{ value }}">{{ label }}</option>
+          {% endfor %}
+        </select>
 
-        <label for="is_head_delegate">Is Head Delegate:</label>
-        <input type="checkbox" id="is_head_delegate" name="is_head_delegate"><br><br>
+        <!-- Committee Preference 2 -->
+        <label class="form-label" for="committee_preference_2">Committee Preference (2)</label>
+        <select id="committee_preference_2" name="committee_preference_2" class="form-select mb-3">
+          <option value="">-- Select Committee --</option>
+          {% for value, label in committee_choices %}
+          <option value="{{ value }}">{{ label }}</option>
+          {% endfor %}
+        </select>
 
-        <h3>Incharge Details</h3>
+        <!-- Incharge Details -->
+        <h4>Incharge Details</h4>
 
-        <label for="incharge_name">Incharge Name:</label><br>
-        <input type="text" id="incharge_name" name="incharge_name" required><br><br>
+        <label class="form-label" for="incharge_name">Incharge Name</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-user" style="color:blue;"></i></span>
+          <input type="text" id="incharge_name" name="incharge_name" class="form-control" placeholder="Enter incharge name" required>
+        </div>
 
-        <label for="incharge_phone_number">Incharge Phone Number:</label><br>
-        <input type="text" id="incharge_phone_number" name="incharge_phone_number" required><br><br>
+        <label class="form-label" for="incharge_phone_number">Incharge Phone Number</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-phone" style="color:blue;"></i></span>
+          <input type="number" id="incharge_phone_number" name="incharge_phone_number" class="form-control" placeholder="Enter incharge phone number" required>
+        </div>
 
-        <label for="incharge_email">Incharge Email:</label><br>
-        <input type="email" id="incharge_email" name="incharge_email" required><br><br>
+        <label class="form-label" for="incharge_email">Incharge Email</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-envelope" style="color:blue;"></i></span>
+          <input type="email" id="incharge_email" name="incharge_email" class="form-control" placeholder="Enter incharge email" required>
+        </div>
 
-        <button type="submit">Register</button>
-    </form>
+        <!-- Submit Button -->
+        <div class="text-center mt-3">
+          <button class="btn btn-outline-primary" type="submit"><i class="fa-solid fa-check"></i> Submit</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  {% include 'school_app/common/footer.html' %}
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
