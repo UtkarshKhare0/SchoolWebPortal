@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Registration</title>
+</head>
+<body>
+    <h2>Student Registration Form</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="student_name">Name:</label><br>
+        <input type="text" id="student_name" name="student_name" required><br><br>
+
+        <label for="student_class">Class:</label><br>
+        <input type="text" id="student_class" name="student_class" required><br><br>
+
+        <label for="student_phone_number">Phone Number:</label><br>
+        <input type="text" id="student_phone_number" name="student_phone_number" required><br><br>
+
+        <label for="student_email">Email ID:</label><br>
+        <input type="email" id="student_email" name="student_email" required><br><br>
+
+        <label for="student_password">Password:</label><br>
+        <input type="password" id="student_password" name="student_password" required><br><br>
+
+        <label for="mun_experience">Experience:</label><br>
+        <textarea id="mun_experience" name="mun_experience"></textarea><br><br>
+
+        <label for="committee_preference_1">Committee Preference (1):</label><br>
+        <select id="committee_preference_1" name="committee_preference_1" required>
+            <option value="">-- Select Committee --</option>
+            {% for value, label in committee_choices %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="committee_preference_2">Committee Preference (2):</label><br>
+        <select id="committee_preference_2" name="committee_preference_2">
+            <option value="">-- Select Committee --</option>
+            {% for value, label in committee_choices %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="is_head_delegate">Is Head Delegate:</label>
+        <input type="checkbox" id="is_head_delegate" name="is_head_delegate"><br><br>
+
+        <h3>Incharge Details</h3>
+
+        <label for="incharge_name">Incharge Name:</label><br>
+        <input type="text" id="incharge_name" name="incharge_name" required><br><br>
+
+        <label for="incharge_phone_number">Incharge Phone Number:</label><br>
+        <input type="text" id="incharge_phone_number" name="incharge_phone_number" required><br><br>
+
+        <label for="incharge_email">Incharge Email:</label><br>
+        <input type="email" id="incharge_email" name="incharge_email" required><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
