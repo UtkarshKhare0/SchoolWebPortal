@@ -37,7 +37,23 @@ def register_student(request):
             incharge_email = reg_inemail
         )
         student_registration_obj.save()
-        return redirect("login")
+        messages.success(request, "Registration Successful! Please Login.")
+        return redirect("login_student")
 
+def login_student(request):
+    if request.method=="GET":
+        return render(request, 'school_app/student/student_login.html')
+    
+    if request.method=="POST":
+        email = request.POST["student_email"]
+        password = request.POST["student_password"]
+        studentList = Student.objects.filter(student_email=email,student_password=password)
+        if studentList.exists():
+            request.session["student_key"] = email
+            messages.success(request, "Login Successful! Welcome Back.")
+            return redirect("dashboard")
+        else:
+            messages.error(request, "Invalid Credentials")
+            return redirect("login_student")
 
     
