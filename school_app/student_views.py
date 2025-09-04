@@ -51,9 +51,39 @@ def login_student(request):
         if studentList.exists():
             request.session["student_key"] = email
             messages.success(request, "Login Successful! Welcome Back.")
-            return redirect("dashboard")
+            return redirect("dashboard_student")
         else:
             messages.error(request, "Invalid Credentials")
             return redirect("login_student")
+
+def logout_student(request):
+    request.session.flush()
+    messages.success(request,"Logged Out Successfully!")
+    return redirect("login_student")
+
+def dashboard_student(request):
+    if request.method=="GET":
+        email = request.session["student_key"]
+        student_obj = Student.objects.get(student_email=email)
+        student_dict = {"student":student_obj}
+        return render(request,'school_app/student/student_dashboard.html',student_dict)
+    
+def edit_profile_student(request):
+    if request.method=="GET":
+        email = request.session["student_key"]
+        student_obj = Student.objects.get(student_email=email)
+        student_dict = {"student":student_obj}
+        return render(request,'school_app/student/student_edit_profile.html',student_dict)
+    if request.method=="POST":
+        email = request.session["student_key"]
+        student_obj = Student.objects.get(student_email=email)
+        student_obj.student_name = request.POST["student_name"]
+        student_obj.student_password = request.POST["student_password"]
+        student_obj.save()
+        messages.success(request,"Profile Updated Successfully!")
+        return redirect("dashboard_student")
+
+
+
 
     
