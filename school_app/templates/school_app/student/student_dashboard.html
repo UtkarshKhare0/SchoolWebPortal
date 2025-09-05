@@ -67,7 +67,17 @@
   <div class="banner">
     Student Dashboard
   </div>
+{% if messages %}
+{% for message in messages %}
+<!-- <h1 style="margin-top: 70px;">{{m}}</h1> -->
+<div class="alert alert-success alert-dismissible fade show mx-auto text-center" role="alert" style="width: 50%;margin-top: 70px; ">
+  <strong>{{ message }}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
 
+{% endif %}
+            
   <!-- Student Details Card -->
   <div class="card">
     <h3>Student Details</h3>

@@ -1,54 +1,172 @@
 <!DOCTYPE html>
-<html>
+{% load static %}
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
+    <style>
+        .field-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .field-row label {
+            width: 160px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .field-row input {
+            flex: 1; 
+            padding: 6px 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .profile-div {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            margin-top: 30px;
+            margin-bottom: 100px;
+            padding: 25px;
+            background-color: #ffffff;  /* solid white */
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 40px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            border-bottom: 3px solid #ffc107;
+            padding-bottom: 5px;
+            font-size: 28px;
+            background: linear-gradient(90deg, #0f4f4f, #17a2b8);
+            color: white;
+        }
+
+        .text-center {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: #0f4f4f;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #ffc107;
+            color: black;
+        }
+    </style>
+    {% include 'school_app/common/common_css.html' %}
 </head>
-<body>
+<body style="background-image: url('{% static 'school_app/images/WhatsApp Image 2025-09-04 at 11.30.00 PM.jpeg' %}'); background-size: cover;">
+
+<div class="main-div">
+
+    <!-- header -->
+    {% include 'school_app/student/student_header.html' %}
+
     <h2>Edit Profile</h2>
 
-    <form method="POST">
-        {% csrf_token %}
+    <div class="profile-div">
+        <form method="POST">
+            {% csrf_token %}
 
-        <!-- Editable -->
-        <label>Name:</label><br>
-        <input type="text" name="student_name" value="{{ student.student_name }}" required><br><br>
+            <!-- Editable fields -->
+            <div class="field-row">
+                <label>Name:</label>
+                <input type="text" name="student_name" value="{{ student.student_name }}" required>
+            </div>
 
-        <label>Password:</label><br>
-        <input type="password" name="student_password" value="{{ student.student_password }}" required><br><br>
+            <div class="field-row">
+                <label>Password:</label>
+                <input type="password" name="student_password" value="{{ student.student_password }}" required>
+            </div>
 
-        <label>Class:</label><br>
-        <input type="text" name="student_class" value="{{ student.student_class }}" required><br><br>
+            <div class="field-row">
+                <label>Class:</label>
+                <input type="text" name="student_class" value="{{ student.student_class }}" required>
+            </div>
 
-        <label>Phone Number:</label><br>
-        <input type="text" name="student_phone_number" value="{{ student.student_phone_number }}" required><br><br>
+            <div class="field-row">
+                <label>Phone Number:</label>
+                <input type="text" name="student_phone_number" value="{{ student.student_phone_number }}" required>
+            </div>
 
-        <!-- Read-only fields -->
-        <label>Email:</label><br>
-        <input type="email" value="{{ student.student_email }}" readonly><br><br>
+            <!-- Read-only fields -->
+            <div class="field-row">
+                <label>Email:</label>
+                <input type="email" value="{{ student.student_email }}" readonly>
+            </div>
 
-        <label>MUN Experience:</label><br>
-        <input type="text" value="{{ student.mun_experience }}" readonly><br><br>
+            <div class="field-row">
+                <label>MUN Experience:</label>
+                <input type="text" value="{{ student.mun_experience }}" readonly>
+            </div>
 
-        <label>Committee Preference 1:</label><br>
-        <input type="text" value="{{ student.committee_preference_1 }}" readonly><br><br>
+            <div class="field-row">
+                <label>Committee Preference 1:</label>
+                <input type="text" value="{{ student.committee_preference_1 }}" readonly>
+            </div>
 
-        <label>Committee Preference 2:</label><br>
-        <input type="text" value="{{ student.committee_preference_2 }}" readonly><br><br>
+            <div class="field-row">
+                <label>Committee Preference 2:</label>
+                <input type="text" value="{{ student.committee_preference_2 }}" readonly>
+            </div>
 
-        <label>Incharge Name:</label><br>
-        <input type="text" value="{{ student.incharge_name }}" readonly><br><br>
+            <div class="field-row">
+                <label>Incharge Name:</label>
+                <input type="text" value="{{ student.incharge_name }}" readonly>
+            </div>
 
-        <label>Incharge Phone:</label><br>
-        <input type="text" value="{{ student.incharge_phone_number }}" readonly><br><br>
+            <div class="field-row">
+                <label>Incharge Phone:</label>
+                <input type="text" value="{{ student.incharge_phone_number }}" readonly>
+            </div>
 
-        <label>Incharge Email:</label><br>
-        <input type="email" value="{{ student.incharge_email }}" readonly><br><br>
+            <div class="field-row">
+                <label>Incharge Email:</label>
+                <input type="email" value="{{ student.incharge_email }}" readonly>
+            </div>
 
-        <!-- Buttons -->
-        <button type="submit">Update Profile</button>
-        <a href="{% url 'dashboard_student' %}">
-            <button type="button">Cancel</button>
-        </a>
-    </form>
+            <!-- Buttons -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+                <a href="{% url 'dashboard_student' %}">
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% include 'school_app/common/footer.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>
