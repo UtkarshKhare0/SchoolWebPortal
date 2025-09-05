@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Dashboard</title>
+</head>
+<body>
+    <h2>Welcome, {{ school.school_name }} 🎓</h2>
+
+    <!-- School Details -->
+    <p><strong>Email:</strong> {{ school.school_email }}</p>
+    <p><strong>Class:</strong> {{ school.school_class }}</p>
+    <p><strong>Designation:</strong> {{ school.school_designation }}</p>
+    <p><strong>Phone:</strong> {{ school.school_phone_number }}</p>
+
+    <br>
+    <a href="{% url 'logout_school' %}">Logout</a>
+    <a href="{% url 'edit_profile_school' %}">Edit Profile</a>
+</body>
+</html>

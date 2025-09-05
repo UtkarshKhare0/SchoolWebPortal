@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit School Profile</title>
+</head>
+<body>
+    <h2>Edit School Profile</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Editable Fields -->
+        <label>Name:</label><br>
+        <input type="text" name="school_name" value="{{ school.school_name }}"><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="school_password" value="{{ school.school_password }}"><br><br>
+
+        <label>Class:</label><br>
+        <input type="text" name="school_class" value="{{ school.school_class }}"><br><br>
+
+        <label>Designation:</label><br>
+        <input type="text" name="school_designation" value="{{ school.school_designation }}"><br><br>
+
+        <label>Phone:</label><br>
+        <input type="text" name="school_phone_number" value="{{ school.school_phone_number }}"><br><br>
+
+        <!-- Read-only Field -->
+        <label>Email:</label><br>
+        <input type="email" value="{{ school.school_email }}" readonly><br><br>
+
+        <!-- Buttons -->
+        <button type="submit">Update Profile</button>
+        <a href="{% url 'dashboard_school' %}">
+            <button type="button">Cancel</button>
+        </a>
+    </form>
+</body>
+</html>

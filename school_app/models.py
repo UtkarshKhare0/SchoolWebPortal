@@ -39,7 +39,7 @@ class School(models.Model):
     school_class = models.CharField(max_length=10,null=False)
     school_designation = models.CharField(max_length=100,null=False)
     school_phone_number = models.CharField(max_length=10,null=False)
-    school_email = models.CharField(max_length=100,null=False)
+    school_email = models.CharField(max_length=100,primary_key=True)
     school_password = models.CharField(max_length=45,null=False)
     def __str__(self):
         return self.school_name
