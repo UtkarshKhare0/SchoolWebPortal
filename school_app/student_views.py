@@ -77,8 +77,19 @@ def edit_profile_student(request):
     if request.method=="POST":
         email = request.session["student_key"]
         student_obj = Student.objects.get(student_email=email)
-        student_obj.student_name = request.POST["student_name"]
-        student_obj.student_password = request.POST["student_password"]
+        new_name = request.POST["student_name"]
+        new_class = request.POST["student_class"]
+        new_password = request.POST["student_password"]
+        new_phone = request.POST["student_phone_number"]
+
+        if new_name:
+            student_obj.student_name = new_name
+        if new_class:
+            student_obj.student_class = new_class
+        if new_password:
+            student_obj.student_password = new_password
+        if new_phone:
+            student_obj.student_phone_number = new_phone
         student_obj.save()
         messages.success(request,"Profile Updated Successfully!")
         return redirect("dashboard_student")
