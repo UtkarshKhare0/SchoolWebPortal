@@ -2,90 +2,104 @@
 {% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
-    <style>
-      .profile-div{
-        width: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter:blur(8px) ;
-    margin: auto;
-    margin-top: 100px;
-    margin-bottom: 100px;
-    height:350px;
-    background-color:rgba(255,255,255,0.3);
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      }
-      .profile-img{
-       display: flex; 
-    justify-content: center; 
-    width: 50%;
-    margin: auto;
-    margin-bottom: 50px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <style>
+    body {
+      background-image: url("{% static 'school_app/images/WhatsApp Image 2025-09-04 at 11.30.00 PM.jpeg' %}");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-        
-        border-radius: 50%;
+    /* Banner Section */
+    .banner {
+      width: 100%;
+      padding: 50px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color:  #ffd700;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
 
-      }
+    /* Frosted Glass Card */
+    .card {
+      width: 90%;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px;
+      backdrop-filter: blur(15px); /* stronger blur */
+      background: rgba(255, 255, 255, 0.15); /* more transparent */
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      color: #222;
+    }
 
+    .card h6 {
+      margin: 8px 0;
+      font-size: 15px;
+    }
 
-
-    </style>
-{% include 'school_app/common/common_css.html'   %}
-
-
+    .card h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #0f4f4f;
+      font-weight: bold;
+    }
+  </style>
+  {% include 'school_app/common/common_css.html' %}
 
 </head>
-<body style= "background-image: url('{% static 'school_app/images/WhatsApp Image 2025-09-04 at 11.30.00 PM.jpeg' %}'); background-size: cover;";>
+<body>
 
 <div class="main-div">
- 
-                          <!-- header code start from here -->
-{% include 'school_app/student/student_header.html'  %}
-  <!-- <div class="container-fluid" style="background-color: aliceblue;">
-<h2 style="color: blueviolet; text-align: center;padding-top: 200px;"> welcome to medilocater</h2>
- </div>                           <-- yaha pe div close hoga -->
+  {% include 'school_app/student/student_header.html' %}
 
-<div class="profile-div">
- 
+  <!-- Banner -->
+  <div class="banner">
+    Student Dashboard
+  </div>
 
-
-<h6>Name: {{ student.student_name }}</h6>
-    <h6>Email: {{ student.student_email }}</h6>
-    <h6>Class: {{ student.student_class }}</h6>
-    <h6>Phone: {{ student.student_phone_number }}</h6>
-    <h6>MUN Experience: {{ student.mun_experience }}</h6>
-    <h6>Committee Preference 1: {{ student.committee_preference_1 }}</h6>
-    <h6>Committee Preference 2: {{ student.committee_preference_2 }}</h6>
-    <h6>Is Head Delegate: 
-        {% if student.is_head_delegate %}
-            ✅ Yes
-        {% else %}
-            ❌ No
-        {% endif %}
+  <!-- Student Details Card -->
+  <div class="card">
+    <h3>Student Details</h3>
+    <h6><b>Name:</b> {{ student.student_name }}</h6>
+    <h6><b>Email:</b> {{ student.student_email }}</h6>
+    <h6><b>Class:</b> {{ student.student_class }}</h6>
+    <h6><b>Phone:</b> {{ student.student_phone_number }}</h6>
+    <h6><b>MUN Experience:</b> {{ student.mun_experience }}</h6>
+    <h6><b>Committee Preference 1:</b> {{ student.committee_preference_1 }}</h6>
+    <h6><b>Committee Preference 2:</b> {{ student.committee_preference_2 }}</h6>
+    <h6><b>Is Head Delegate:</b> 
+      {% if student.is_head_delegate %}
+        ✅ Yes
+      {% else %}
+        ❌ No
+      {% endif %}
     </h6>
+  </div>
 
-    <h3>Incharge Details:</h3>
-    <h6>Name: {{ student.incharge_name }}</h6>
-    <h6>Phone: {{ student.incharge_phone_number }}</h6>
-    <h6>Email: {{ student.incharge_email }}</h6>
+  <!-- Incharge Details Card -->
+  <div class="card">
+    <h3>Incharge Details</h3>
+    <h6><b>Name:</b> {{ student.incharge_name }}</h6>
+    <h6><b>Phone:</b> {{ student.incharge_phone_number }}</h6>
+    <h6><b>Email:</b> {{ student.incharge_email }}</h6>
+  </div>
 
+</div>
 
-</div >
+{% include 'school_app/common/footer.html' %}
 
-
-    </div>
-   {% include 'school_app/common/footer.html' %}
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>            
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
