@@ -1,34 +1,178 @@
 <!DOCTYPE html>
-<html>
+{% load static %}
+<html lang="en">
 <head>
-    <title>School Registration</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+
+
+  <style>
+    body {
+      background-image: url("{% static 'school_app/images/WhatsApp Image 2025-09-04 at 11.30.00 PM.jpeg' %}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .admin_form {
+      width: 90%;
+      max-width: 650px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      margin: 50px auto;
+      color: #222;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .form-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 25px;
+      padding: 12px;
+      background: linear-gradient(135deg, #7da2a9, #071B52);
+      color:#ffd700;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .form-label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .input-group-text {
+      background-color: #f0f8ff;
+      border: none;
+      border-right: 1px solid #ddd;
+    }
+
+    .form-control, .form-select {
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid #ddd;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #4e8fa6;
+      box-shadow: 0 0 8px rgba(78,143,166,0.4);
+    }
+
+    .btn-outline-primary {
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border-width: 2px;
+    }
+    .btn-outline-primary:hover {
+      background-color: #0d6efd;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(13,110,253,0.4);
+    }
+
+    h4 {
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    label {
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+  </style>
+  {% include 'school_app/common/common_css.html' %}
+
 </head>
 <body>
-    <h2>School Registration</h2>
-    <form method="POST">
+
+  <div class="main-div">
+
+    <!-- header -->
+    {% include 'school_app/common/header.html' %}
+
+    <!-- Title -->
+    <div class="form-title">School Registration <i class="fa-solid fa-thumbs-up"></i></div>
+
+    <!-- Registration Form -->
+    <div class="admin_form">
+      <form action="/school_register/" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <label>Name:</label><br>
-        <input type="text" name="school_name" required><br><br>
+        <!-- school Name -->
+        <label class="form-label" for="school_name">School Name</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-user" style="color:blue;"></i></span>
+          <input type="text" id="school_name" name="school_name" class="form-control" placeholder="Enter your School name" required>
+        </div>
 
-        <label>Class:</label><br>
-        <input type="text" name="school_class" required><br><br>
+        <!-- school Class -->
+        <label class="form-label" for="school_class">Class</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-school" style="color:blue;"></i></span>
+          <input type="text" id="school_class" name="school_class" class="form-control" placeholder="e.g. 10th" required>
+        </div>
+        <!-- school designation -->
+        <label class="form-label" for="school_designation">School Designation</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-school" style="color:blue;"></i></span>
+          <input type="text" id="school_designation" name="school_designation" class="form-control" placeholder="Enter designation" required>
+        </div>
 
-        <label>Designation:</label><br>
-        <input type="text" name="school_designation" required><br><br>
+        <!-- Password -->
+        <label class="form-label" for="school_password">Password</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-lock" style="color:blue;"></i></span>
+          <input type="password" id="school_password" name="school_password" class="form-control" placeholder="Choose a password" required>
+        </div>
 
-        <label>Phone Number:</label><br>
-        <input type="text" name="school_phone_number" required><br><br>
+        <!-- Phone -->
+        <label class="form-label" for="school_phone_number">Phone Number</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-phone" style="color:blue;"></i></span>
+          <input type="number" id="school_phone_number" name="school_phone_number" class="form-control" placeholder="Enter phone number" required>
+        </div>
 
-        <label>Email:</label><br>
-        <input type="email" name="school_email" required><br><br>
+        <!-- Email -->
+        <label class="form-label" for="school_email">Email</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-envelope" style="color:blue;"></i></span>
+          <input type="email" id="school_email" name="school_email" class="form-control" placeholder="Enter your email" required>
+        </div>
 
-        <label>Password:</label><br>
-        <input type="password" name="school_password" required><br><br>
+        
+        <!-- Submit Button -->
+        <div class="text-center mt-3">
+          <button class="btn btn-outline-primary" type="submit"><i class="fa-solid fa-check"></i> Submit</button>
+        </div>
 
-        <button type="submit">Register</button>
-    </form>
+      </form>
+    </div>
 
-    <br>
+  </div>
+
+  <!-- footer -->
+  {% include 'school_app/common/footer.html' %}
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

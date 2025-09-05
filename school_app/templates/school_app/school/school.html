@@ -50,7 +50,7 @@
 
                           
 {% include 'school_app/common/header.html'  %}
- <div class="form-title">School Login <i class="fa-solid fa-thumbs-up"></i></div>
+ <div class="form-title">Student Login <i class="fa-solid fa-thumbs-up"></i></div>
 {% if messages %}
 {% for message in messages %}
 <!-- <h1 style="margin-top: 70px;">{{m}}</h1> -->
@@ -70,7 +70,7 @@
 
 
 <div class="admin_form">
-<form method="post" action="/school_login/" >
+<form method="post" action="/login/" >
   {% csrf_token %}
 
 <div class="input-group mb-3">
