@@ -11,6 +11,7 @@ def register_student(request):
     if request.method=="POST":
         reg_name = request.POST["student_name"]
         reg_class = request.POST["student_class"]
+        reg_school = request.POST["student_school_name"]
         reg_phone = request.POST["student_phone_number"]
         reg_email = request.POST["student_email"]
         reg_pass = request.POST["student_password"]
@@ -21,10 +22,13 @@ def register_student(request):
         reg_inname = request.POST["incharge_name"]
         reg_inphone = request.POST["incharge_phone_number"]
         reg_inemail = request.POST["incharge_email"]
+        reg_allot_commit= request.POST.get("alloted_committee","")
+        reg_allot_port = request.POST.get("alloted_portfolio","")
 
         student_registration_obj = Student(
             student_name = reg_name,
             student_class = reg_class,
+            student_school_name = reg_school,
             student_phone_number = reg_phone,
             student_email = reg_email,
             student_password = reg_pass,
@@ -34,7 +38,9 @@ def register_student(request):
             is_head_delegate = reg_head,
             incharge_name = reg_inname,
             incharge_phone_number = reg_inphone,
-            incharge_email = reg_inemail
+            incharge_email = reg_inemail,
+            alloted_committee = reg_allot_commit,
+            alloted_portfolio = reg_allot_port
         )
         student_registration_obj.save()
         messages.success(request, "Registration Successful! Please Login.")

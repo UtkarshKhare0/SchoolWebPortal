@@ -20,6 +20,7 @@ class Student(models.Model):
 
     student_name = models.CharField(max_length=100,null=False)
     student_class = models.CharField(max_length=10,null=False)
+    student_school_name= models.CharField(max_length=500,null=False,default="")
     student_phone_number = models.CharField(max_length=10,null=False)
     student_email = models.EmailField(max_length=100,primary_key=True)
     student_password = models.CharField(max_length=45,null=False)
@@ -30,6 +31,8 @@ class Student(models.Model):
     incharge_name = models.CharField(max_length=100,null=False)
     incharge_phone_number = models.CharField(max_length=10,null=False)
     incharge_email = models.EmailField(max_length=100)
+    alloted_committee = models.CharField(max_length=500,blank=True,null=True)
+    alloted_portfolio = models.CharField(max_length=500,blank=True,null=True)
     def __str__(self):
         return self.student_name
 
