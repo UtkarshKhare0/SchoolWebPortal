@@ -1,0 +1,40 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+</head>
+<body>
+    
+    <h2>Welcome, {{ student.student_name }} 👋</h2>
+
+    <h3>Student Details:</h3>
+    <p><strong>Name:</strong> {{ student.student_name }}</p>
+    <p><strong>Email:</strong> {{ student.student_email }}</p>
+    <p><strong>Class:</strong> {{ student.student_class }}</p>
+    <p><strong>Phone:</strong> {{ student.student_phone_number }}</p>
+    <p><strong>MUN Experience:</strong> {{ student.mun_experience }}</p>
+    <p><strong>Committee Preference 1:</strong> {{ student.committee_preference_1 }}</p>
+    <p><strong>Committee Preference 2:</strong> {{ student.committee_preference_2 }}</p>
+    <p><strong>Is Head Delegate:</strong> 
+        {% if student.is_head_delegate %}
+            ✅ Yes
+        {% else %}
+            ❌ No
+        {% endif %}
+    </p>
+
+    <h3>Incharge Details:</h3>
+    <p><strong>Name:</strong> {{ student.incharge_name }}</p>
+    <p><strong>Phone:</strong> {{ student.incharge_phone_number }}</p>
+    <p><strong>Email:</strong> {{ student.incharge_email }}</p>
+
+    <br>
+    <a href="{% url 'logout_student' %}">Logout</a>
+    <br>
+    <a href="{% url 'edit_profile_student' %}">Edit Profile</a>
+</body>
+</html>
