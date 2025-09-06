@@ -1,7 +1,8 @@
-from django.shortcuts import render,HttpResponse,redirect
-from .models import School
+from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
+from .models import School,Student
 
 from django.contrib import messages
+from django.urls import reverse
 
 def register_school(request):
 
@@ -85,6 +86,44 @@ def edit_profile_school(request):
         school_obj.save()
         messages.success(request,"Profile Updated Successfully!")
         return redirect("dashboard_school")
-    
+
+def manage_students(request):
+    query = request.POST.get("q") or request.GET.get("q")  # search query
+    students = []
+
+    if query:
+        email = request.POST.get("q") or request.GET.get("q")
+        students = Student.objects.filter(student_school_name__icontains=query)
+
+    if request.method == "POST":
+        email = request.POST.get("delete") or request.POST.get("update")
+        student = get_object_or_404(Student, student_email=email)
+        # Delete student
+        if "delete" in request.POST:
+            student.delete()
+            return redirect(f"{reverse('manage_students')}?q={query}")
+
+        # Update student
+        elif "update" in request.POST:
+            
+
+            # Directly model ke field names le lo
+            student.student_name = request.POST.get("student_name", student.student_name)
+            student.student_class = request.POST.get("student_class", student.student_class)
+            student.student_phone_number = request.POST.get("student_phone_number", student.student_phone_number)
+            student.mun_experience = request.POST.get("mun_experience", student.mun_experience)
+            student.committee_preference_1 = request.POST.get("committee_preference_1", student.committee_preference_1)
+            student.committee_preference_2 = request.POST.get("committee_preference_2", student.committee_preference_2)
+            student.alloted_committee = request.POST.get("alloted_committee", student.alloted_committee)
+            student.alloted_portfolio = request.POST.get("alloted_portfolio", student.alloted_portfolio)
+
+            student.save()
+            return redirect(f"{reverse('manage_students')}?q={query}")
+
+    return render(request, "school_app/school/manage_students.html", {
+        "students": students,
+        "query": query,
+    })
+
 
     

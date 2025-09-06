@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Students</title>
+    <style>
+        input.readonly-input {
+            border: none;
+            background: transparent;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h2>Manage Students 👨‍🎓</h2>
+
+    <!-- Search Bar -->
+    <form method="get" action="{% url 'manage_students' %}">
+        <input type="text" name="q" placeholder="Enter School Name..." value="{{ query|default:'' }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <br>
+
+    {% if students %}
+        <!-- Incharge Info -->
+        <h3>Incharge Details</h3>
+        <p><strong>Name:</strong> {{ students.0.incharge_name }}</p>
+        <p><strong>Phone:</strong> {{ students.0.incharge_phone_number }}</p>
+        <p><strong>Email:</strong> {{ students.0.incharge_email }}</p>
+
+        <br>
+
+        <!-- Students Table -->
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Class</th>
+                <th>Phone</th>
+                <th>School Name</th>
+                <th>Mun Experience</th>
+                <th>Preference 1</th>
+                <th>Preference 2</th>
+                <th>Head Delegate</th>
+                <th>Alloted Committee</th>
+                <th>Alloted Portfolio</th>
+                <th>Actions</th>
+            </tr>
+            {% for student in students %}
+            <tr id="row-{{ student.student_email }}">
+                <form method="post" action="{% url 'manage_students' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="q" value="{{ query }}">
+                    <td><input class="readonly-input" type="text" name="student_name" value="{{ student.student_name }}" readonly></td>
+                    <td>{{ student.student_email }}</td>
+                    <td>{{ student.student_password }}</td>
+                    <td><input class="readonly-input" type="text" name="student_class" value="{{ student.student_class }}" readonly></td>
+                    <td><input class="readonly-input" type="text" name="student_phone_number" value="{{ student.student_phone_number }}" readonly></td>
+                    <td>{{ student.student_school_name }}</td>
+                    <td><input class="readonly-input" type="text" name="mun_experience" value="{{ student.mun_experience }}" readonly></td>
+                    <td><input class="readonly-input" type="text" name="committee_preference_1" value="{{ student.committee_preference_1 }}" readonly></td>
+                    <td><input class="readonly-input" type="text" name="committee_preference_2" value="{{ student.committee_preference_2 }}" readonly></td>
+                    <td>{% if student.is_head_delegate %}✅{% else %}❌{% endif %}</td>
+                    <td><input class="readonly-input" type="text" name="alloted_committee" value="{{ student.alloted_committee|default:'' }}" readonly></td>
+                    <td><input class="readonly-input" type="text" name="alloted_portfolio" value="{{ student.alloted_portfolio|default:'' }}" readonly></td>
+                    <td>
+                        <button type="button" class="edit-btn" onclick="enableEdit('{{ student.student_email }}')">✏ Edit</button>
+                        <button type="submit" name="update" value="{{ student.student_email }}" class="update-btn" style="display:none;">💾 Update</button>
+                        <button type="submit" name="delete" value="{{ student.student_email }}" onclick="return confirm('Delete this student?');">🗑 Delete</button>
+                    </td>
+                </form>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        {% if query %}
+            <p>No students found for "{{ query }}".</p>
+        {% endif %}
+    {% endif %}
+
+    <br>
+    <a href="{% url 'dashboard_school' %}">⬅ Back to Dashboard</a>
+
+    <script>
+    function enableEdit(email) {
+        const row = document.getElementById("row-" + email);
+        const inputs = row.querySelectorAll("input.readonly-input");
+        inputs.forEach(input => input.removeAttribute("readonly"));
+
+        const editBtn = row.querySelector("button.edit-btn");
+        const updateBtn = row.querySelector("button.update-btn");
+        editBtn.style.display = "none";
+        updateBtn.style.display = "inline-block";
+    }
+    </script>
+</body>
+</html>
