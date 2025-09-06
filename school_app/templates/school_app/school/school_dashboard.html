@@ -1,19 +1,113 @@
+
 <!DOCTYPE html>
-<html>
+{% load static %}
+<html lang="en">
 <head>
-    <title>School Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Dashboard</title>
+  <style>
+    body {
+      background-image: url("{% static 'school_app/images/WhatsApp Image 2025-09-04 at 11.30.00 PM.jpeg' %}");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Banner Section */
+    .banner {
+      width: 100%;
+      padding: 50px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color:  #ffd700;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* Frosted Glass Card */
+    .card {
+      width: 90%;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px;
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      color: #222;
+    }
+
+    .card h6 {
+      margin: 8px 0;
+      font-size: 15px;
+    }
+
+    .card h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #0f4f4f;
+      font-weight: bold;
+    }
+
+    /* Button Styling */
+    .btn-container {
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      background: #0f4f4f;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #066;
+    }
+
+  </style>
+  {% include 'school_app/common/common_css.html' %}
 </head>
 <body>
-    <h2>Welcome, {{ school.school_name }} 🎓</h2>
 
-    <!-- School Details -->
-    <p><strong>Email:</strong> {{ school.school_email }}</p>
-    <p><strong>Class:</strong> {{ school.school_class }}</p>
-    <p><strong>Designation:</strong> {{ school.school_designation }}</p>
-    <p><strong>Phone:</strong> {{ school.school_phone_number }}</p>
+<div class="main-div">
+  {% include 'school_app/school/school_header.html' %}
 
-    <br>
-    <a href="{% url 'logout_school' %}">Logout</a>
-    <a href="{% url 'edit_profile_school' %}">Edit Profile</a>
+  <!-- Banner -->
+  <div class="banner">
+    School Dashboard
+  </div>
+
+  <!-- School Details Card -->
+  <div class="card">
+    <h3>School Details</h3>
+    <h6><b>Name:</b> {{ school.school_name }}</h6>
+    <h6><b>Email:</b> {{ school.school_email }}</h6>
+    <h6><b>Class:</b> {{ school.school_class }}</h6>
+    <h6><b>Designation:</b> {{ school.school_designation }}</h6>
+    <h6><b>Phone:</b> {{ school.school_phone_number }}</h6>
+  </div>
+
+  <!-- Buttons -->
+  
+</div>
+
+{% include 'school_app/common/footer.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>
 </html>

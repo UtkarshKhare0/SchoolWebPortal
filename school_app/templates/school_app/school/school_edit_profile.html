@@ -1,39 +1,160 @@
 <!DOCTYPE html>
-<html>
+{% load static %}
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit School Profile</title>
+    <style>
+        body {
+            background-image: url('{% static "school_app/images/WhatsApp Image 2025-09-04 at 11.30.00 PM.jpeg" %}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* Banner Heading */
+        .banner {
+            width: 100%;
+            padding: 60px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #ffd700;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+        }
+
+        .field-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .field-row label {
+            width: 160px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .field-row input {
+            flex: 1; 
+            padding: 6px 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .profile-div {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            margin-top: 40px;
+            margin-bottom: 100px;
+            padding: 25px;
+            background-color: #ffffff;  /* solid white box */
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        .text-center {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: #0f4f4f;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #ffc107;
+            color: black;
+        }
+    </style>
+    {% include 'school_app/common/common_css.html' %}
 </head>
 <body>
-    <h2>Edit School Profile</h2>
 
-    <form method="POST">
-        {% csrf_token %}
+<div class="main-div">
 
-        <!-- Editable Fields -->
-        <label>Name:</label><br>
-        <input type="text" name="school_name" value="{{ school.school_name }}"><br><br>
+    <!-- header -->
+    {% include 'school_app/student/student_header.html' %}
 
-        <label>Password:</label><br>
-        <input type="password" name="school_password" value="{{ school.school_password }}"><br><br>
+    <!-- Banner Heading -->
+    <div class="banner">
+        Edit School Profile
+    </div>
 
-        <label>Class:</label><br>
-        <input type="text" name="school_class" value="{{ school.school_class }}"><br><br>
+    <div class="profile-div">
+        <form method="POST">
+            {% csrf_token %}
 
-        <label>Designation:</label><br>
-        <input type="text" name="school_designation" value="{{ school.school_designation }}"><br><br>
+            <!-- Editable fields -->
+            <div class="field-row">
+                <label>Name:</label>
+                <input type="text" name="school_name" value="{{ school.school_name }}" required>
+            </div>
 
-        <label>Phone:</label><br>
-        <input type="text" name="school_phone_number" value="{{ school.school_phone_number }}"><br><br>
+            <div class="field-row">
+                <label>Password:</label>
+                <input type="password" name="school_password" value="{{ school.school_password }}" required>
+            </div>
 
-        <!-- Read-only Field -->
-        <label>Email:</label><br>
-        <input type="email" value="{{ school.school_email }}" readonly><br><br>
+            <div class="field-row">
+                <label>Class:</label>
+                <input type="text" name="school_class" value="{{ school.school_class }}" required>
+            </div>
 
-        <!-- Buttons -->
-        <button type="submit">Update Profile</button>
-        <a href="{% url 'dashboard_school' %}">
-            <button type="button">Cancel</button>
-        </a>
-    </form>
+            <div class="field-row">
+                <label>Designation:</label>
+                <input type="text" name="school_designation" value="{{ school.school_designation }}" required>
+            </div>
+
+            <div class="field-row">
+                <label>Phone:</label>
+                <input type="text" name="school_phone_number" value="{{ school.school_phone_number }}" required>
+            </div>
+
+            <!-- Read-only field -->
+            <div class="field-row">
+                <label>Email:</label>
+                <input type="email" value="{{ school.school_email }}" readonly>
+            </div>
+
+            <!-- Buttons -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+                <a href="{% url 'dashboard_school' %}">
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% include 'school_app/common/footer.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>
+
