@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
 from .models import School,Student
 
 from django.contrib import messages
+from django.conf import settings
 from django.urls import reverse
 
 def register_school(request):
@@ -16,6 +17,10 @@ def register_school(request):
         reg_phone = request.POST["school_phone_number"]
         reg_email = request.POST["school_email"]
         reg_pass = request.POST["school_password"]
+        auth_code = request.POST["auth_code"]
+        if auth_code != settings.SCHOOL_AUTH_CODE:
+            messages.error(request,"Invalid Authorization Code!")
+            return redirect("register_school")
 
         school_registration_obj = School(
             school_name = reg_name,

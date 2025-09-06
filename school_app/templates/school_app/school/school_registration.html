@@ -113,6 +113,17 @@
     <!-- Title -->
     <div class="form-title">School Registration <i class="fa-solid fa-thumbs-up"></i></div>
 
+    {% if messages %}
+      {% for message in messages %}
+      <!-- <h1 style="margin-top: 70px;">{{m}}</h1> -->
+        <div class="alert alert-success alert-dismissible fade show mx-auto text-center" role="alert" style="width: 50%;margin-top: 70px; ">
+        <strong>{{ message }}</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+
+    {% endif %}
+
     <!-- Registration Form -->
     <div class="admin_form">
       <form action="/school_register/" method="post" enctype="multipart/form-data">
@@ -143,6 +154,13 @@
         <div class="input-group mb-3">
           <span class="input-group-text"><i class="fa-solid fa-lock" style="color:blue;"></i></span>
           <input type="password" id="school_password" name="school_password" class="form-control" placeholder="Choose a password" required>
+        </div>
+
+        <!-- Password -->
+        <label class="form-label" for="auth_code">Authorization Code</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-lock" style="color:blue;"></i></span>
+          <input type="password" id="auth_code" name="auth_code" class="form-control" placeholder="Enter Authorization Code..." required>
         </div>
 
         <!-- Phone -->
